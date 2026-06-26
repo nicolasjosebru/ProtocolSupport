@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    padding: 30px 40px;
+    color: #000;
+    background: white;
+  }
+  .header {
+    border: 2px solid #000;
+    padding: 10px 14px;
+    margin-bottom: 18px;
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 6px;
+  }
+  .nombre-box { font-size: 14px; }
+  .nombre-box span { font-weight: bold; border-bottom: 1px solid #000; display: inline-block; min-width: 220px; }
+  .nota-box {
+    border: 2px solid #000;
+    padding: 8px 16px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    min-width: 80px;
+  }
+  .nota-box .label { font-size: 11px; font-weight: normal; }
+
+  h2.titulo-examen {
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .ejercicio { margin-bottom: 22px; }
+  .ejercicio > p.enunciado {
+    font-size: 13px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .enunciado strong { font-weight: bold; }
+
+  /* Texto noticia */
+  .noticia-box {
+    border: 1px solid #aaa;
+    padding: 10px 14px;
+    margin-bottom: 12px;
+    line-height: 1.6;
+    font-size: 12.5px;
+  }
+  .noticia-box .noticia-titulo {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .noticia-box p { margin-bottom: 6px; }
+  mark { background: #b3d4ff; padding: 0 1px; font-weight: bold; }
+
+  /* Título completado */
+  .titulo-completado {
+    border-bottom: 1.5px solid #000;
+    display: block;
+    width: 100%;
+    padding: 3px 4px;
+    font-weight: bold;
+    color: #1a237e;
+    margin-bottom: 12px;
+    font-size: 13.5px;
+  }
+
+  /* Tabla análisis morfológico */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  th {
+    background: #263238;
+    color: white;
+    padding: 6px 8px;
+    text-align: left;
+    font-size: 11.5px;
+  }
+  td {
+    padding: 5px 8px;
+    border: 1px solid #bbb;
+    vertical-align: top;
+  }
+  tr:nth-child(even) td { background: #f5f5f5; }
+  .palabra-celda { font-weight: bold; color: #880E4F; }
+  .respuesta { color: #1565C0; font-weight: 500; }
+
+  /* Verbo tabla */
+  .tabla-verbos th { font-size: 11px; }
+  .tabla-verbos td { font-size: 11.5px; }
+
+  /* Ejercicio 4 */
+  .conjugacion-resultado {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 6px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+  .conjugacion-resultado .resultado { font-size: 16px; font-weight: bold; color: #2E7D32; }
+  .conjugacion-resultado .oracion { margin-top: 5px; color: #1565C0; font-style: italic; }
+  .conjugacion-resultado .oracion strong { font-style: normal; }
+
+  .puntos { float: right; font-size: 11px; color: #555; }
+
+  @media print {
+    body { padding: 20px 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="nombre-box">
+      NOMBRE: <span>Clara Jauregui Jorda</span>
+    </div>
+    <div class="nota-box">
+      <div class="label">NOTA</div>
+      10
+    </div>
+  </div>
+  <div>Recuperatorio - Prácticas del Lenguaje 2°A (28/04)</div>
+</div>
+
+<h2 class="titulo-examen">EXAMEN RESUELTO CORRECTAMENTE</h2>
+
+<!-- ==================== EJERCICIO 1 ==================== -->
+<div class="ejercicio">
+  <p class="enunciado">
+    <strong>1) Leo y comprendo.</strong> Realizá una lectura atenta del siguiente fragmento de una noticia. Una vez que termines de leerla, ponele un título que tenga que ver con lo que se informa en la nota.
+    <span class="puntos">(2p.)</span>
+  </p>
+
+  <div class="noticia-box">
+    <p style="font-weight:bold; margin-bottom:4px;">TÍTULO:</p>
+    <span class="titulo-completado">Amenazas de tiroteo generaron alarma en escuelas de varias provincias argentinas</span>
+
+    <p>Los <mark>mensajes</mark> intimidatorios aparecieron en paredes y baños de distintos colegios y obligaron a activar protocolos de seguridad. <mark>Las</mark> autoridades investigan un posible patrón común, mientras familias y docentes advirtieron sobre el impacto <mark>emocional</mark> en la <mark>comunidad</mark> educativa.</p>
+    <br>
+    <p>Una serie de amenazas de tiroteo generó alarma en al menos <mark>veinte</mark> escuelas de varias provincias <mark>argentinas</mark>. Las advertencias habían aparecido en paredes y hojas dentro de los establecimientos, con frases como "mañana tiros" y fechas específicas, lo que provocó <mark>preocupación</mark> entre estudiantes, familias y docentes. El patrón de las amenazas incluía referencias a fechas como el 15 y el 16 de abril. <mark>Ante</mark> esta situación, las autoridades educativas mantendrán la vigilancia en las escuelas y reforzarán el trabajo en la prevención de la violencia. Según explicaron especialistas, <mark>este</mark> tipo de episodios podría generar un "efecto contagio" en <mark>otras</mark> instituciones.</p>
+  </div>
+</div>
+
+<!-- ==================== EJERCICIO 2 ==================== -->
+<div class="ejercicio">
+  <p class="enunciado">
+    <strong>2) Análisis morfológico.</strong> Determiná si las diez palabras en negrita marcadas en el texto del punto 1 son artículos, sustantivos, adjetivos, pronombres o preposiciones. Clasificalas, especificá su tipo e indicá sus accidentes gramaticales.
+    <span class="puntos">(4p.)</span>
+  </p>
+
+  <table>
+    <tr>
+      <th style="width:14%">Palabra</th>
+      <th>Clase de palabra</th>
+      <th>Tipo</th>
+      <th>Género</th>
+      <th>Número</th>
+      <th>Observaciones</th>
+    </tr>
+    <tr>
+      <td class="palabra-celda">mensajes</td>
+      <td class="respuesta">Sustantivo</td>
+      <td class="respuesta">Común, concreto, individual, contable</td>
+      <td class="respuesta">Masculino</td>
+      <td class="respuesta">Plural</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">las</td>
+      <td class="respuesta">Artículo</td>
+      <td class="respuesta">Definido</td>
+      <td class="respuesta">Femenino</td>
+      <td class="respuesta">Plural</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">comunidad</td>
+      <td class="respuesta">Sustantivo</td>
+      <td class="respuesta">Común, abstracto, colectivo, contable</td>
+      <td class="respuesta">Femenino</td>
+      <td class="respuesta">Singular</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">emocional</td>
+      <td class="respuesta">Adjetivo</td>
+      <td class="respuesta">Calificativo</td>
+      <td class="respuesta">Masc./Fem.</td>
+      <td class="respuesta">Singular</td>
+      <td class="respuesta">Variable</td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">veinte</td>
+      <td class="respuesta">Adjetivo</td>
+      <td class="respuesta">Numeral cardinal</td>
+      <td colspan="2" class="respuesta">Invariable (no varía)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">preocupación</td>
+      <td class="respuesta">Sustantivo</td>
+      <td class="respuesta">Común, abstracto, individual, contable</td>
+      <td class="respuesta">Femenino</td>
+      <td class="respuesta">Singular</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">argentinas</td>
+      <td class="respuesta">Adjetivo</td>
+      <td class="respuesta">Gentilicio</td>
+      <td class="respuesta">Femenino</td>
+      <td class="respuesta">Plural</td>
+      <td class="respuesta">Variable</td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">ante</td>
+      <td class="respuesta">Preposición</td>
+      <td class="respuesta">—</td>
+      <td colspan="2" class="respuesta">Invariable (no varía)</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">este</td>
+      <td class="respuesta">Adjetivo</td>
+      <td class="respuesta">Demostrativo</td>
+      <td class="respuesta">Masculino</td>
+      <td class="respuesta">Singular</td>
+      <td class="respuesta">Variable</td>
+    </tr>
+    <tr>
+      <td class="palabra-celda">otras</td>
+      <td class="respuesta">Adjetivo</td>
+      <td class="respuesta">Indefinido</td>
+      <td class="respuesta">Femenino</td>
+      <td class="respuesta">Plural</td>
+      <td class="respuesta">Variable</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ==================== EJERCICIO 3 ==================== -->
+<div class="ejercicio">
+  <p class="enunciado">
+    <strong>3) Reconocimiento y análisis de verbos conjugados.</strong> En el texto del punto 1, hay <strong>doce</strong> verbos conjugados. Marcalos, transcribilos y completá el cuadro.
+    <span class="puntos">(4p.)</span>
+  </p>
+
+  <table class="tabla-verbos">
+    <tr>
+      <th style="width:4%">N°</th>
+      <th style="width:18%">Verbo conjugado</th>
+      <th style="width:20%">Tiempo</th>
+      <th style="width:15%">Modo</th>
+      <th style="width:14%">Persona y N°</th>
+      <th style="width:14%">Infinitivo</th>
+      <th style="width:15%">Raíz</th>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td class="palabra-celda">aparecieron</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">APARECER</td>
+      <td class="respuesta">aparec-</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td class="palabra-celda">obligaron</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">OBLIGAR</td>
+      <td class="respuesta">oblig-</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td class="palabra-celda">investigan</td>
+      <td class="respuesta">Presente</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">INVESTIGAR</td>
+      <td class="respuesta">investig-</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td class="palabra-celda">advirtieron</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">ADVERTIR</td>
+      <td class="respuesta">advert-</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td class="palabra-celda">generó</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° singular</td>
+      <td class="respuesta">GENERAR</td>
+      <td class="respuesta">gener-</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td class="palabra-celda">habían aparecido</td>
+      <td class="respuesta">Pretérito Pluscuamp.</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">APARECER</td>
+      <td class="respuesta">aparec-</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td class="palabra-celda">provocó</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° singular</td>
+      <td class="respuesta">PROVOCAR</td>
+      <td class="respuesta">provoc-</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td class="palabra-celda">incluía</td>
+      <td class="respuesta">Pretérito Imperfecto</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° singular</td>
+      <td class="respuesta">INCLUIR</td>
+      <td class="respuesta">inclu-</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td class="palabra-celda">mantendrán</td>
+      <td class="respuesta">Futuro Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">MANTENER</td>
+      <td class="respuesta">manten-</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td class="palabra-celda">reforzarán</td>
+      <td class="respuesta">Futuro Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">REFORZAR</td>
+      <td class="respuesta">reforz-</td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td class="palabra-celda">explicaron</td>
+      <td class="respuesta">Pretérito Perf. Simple</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° plural</td>
+      <td class="respuesta">EXPLICAR</td>
+      <td class="respuesta">explic-</td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td class="palabra-celda">podría</td>
+      <td class="respuesta">Condicional</td>
+      <td class="respuesta">Indicativo</td>
+      <td class="respuesta">3° singular</td>
+      <td class="respuesta">PODER</td>
+      <td class="respuesta">pod-</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ==================== EJERCICIO 4 ==================== -->
+<div class="ejercicio">
+  <p class="enunciado">
+    <strong>4) Creación de verbos conjugados.</strong> Siguiendo las instrucciones que figuran a continuación, escribí la forma conjugada de los verbos. Luego, utilizá los verbos que formaste en una oración para demostrar su uso correcto.
+    <span class="puntos">(2p.)</span>
+  </p>
+
+  <div class="conjugacion-resultado">
+    <p style="margin-bottom:4px;">▸ <strong>Futuro Simple, Modo Indicativo, 1ra Singular (CONVERTIR):</strong></p>
+    <p class="resultado">convertiré</p>
+    <p><em>¿Cómo se forma?</em> CONVERTIR (infinitivo) + <strong>-é</strong> (terminación de 1° singular, futuro) = <strong>convertiré</strong></p>
+    <p class="oracion">ORACIÓN: "Yo <strong>convertiré</strong> mi pieza en un estudio de música."</p>
+  </div>
+
+  <div class="conjugacion-resultado">
+    <p style="margin-bottom:4px;">▸ <strong>Pretérito Imperfecto, Modo Indicativo, 2da Plural (CONVERSAR):</strong></p>
+    <p class="resultado">conversaban</p>
+    <p><em>¿Cómo se forma?</em> CONVERS- (raíz) + <strong>-aban</strong> (terminación de 2° plural / ustedes, imperfecto -AR) = <strong>conversaban</strong></p>
+    <p class="oracion">ORACIÓN: "Ustedes <strong>conversaban</strong> sobre la tarea de ayer cuando sonó el timbre."</p>
+  </div>
+</div>
+
+<hr style="margin:20px 0; border:1px solid #ccc;">
+<p style="font-size:11px; color:#555; text-align:center;">Examen resuelto correctamente · Prácticas del Lenguaje 2°A · Recuperatorio 28/04</p>
+
+</body>
+</html>
