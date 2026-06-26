@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prácticas del Lenguaje - Guía Completa</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a2e; color: #333; }
+
+  .slide {
+    width: 960px;
+    min-height: 540px;
+    margin: 20px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    page-break-after: always;
+    position: relative;
+  }
+
+  /* PORTADA */
+  .slide-portada {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7b4397 100%);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 60px;
+    min-height: 540px;
+  }
+  .slide-portada h1 { color: white; font-size: 42px; font-weight: 800; margin-bottom: 20px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
+  .slide-portada h2 { color: #b8d4ff; font-size: 26px; font-weight: 400; margin-bottom: 30px; }
+  .slide-portada .subtitulo { color: #d4b8ff; font-size: 18px; background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 30px; }
+  .slide-portada .decoracion { font-size: 80px; margin-bottom: 20px; }
+
+  /* SLIDE NORMAL */
+  .slide-normal { background: white; }
+  .slide-header {
+    padding: 24px 40px 18px;
+    border-bottom: 4px solid transparent;
+  }
+  .slide-header h2 { font-size: 28px; font-weight: 700; }
+  .slide-header .numero { font-size: 13px; font-weight: 600; opacity: 0.6; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 4px; }
+  .slide-body { padding: 28px 40px; }
+
+  /* COLORES POR TEMA */
+  .tema-sustantivo .slide-header { background: linear-gradient(90deg, #e8f4fd, white); border-color: #2196F3; }
+  .tema-sustantivo .slide-header h2 { color: #1565C0; }
+  .tema-sustantivo .slide-header .numero { color: #2196F3; }
+  .tema-sustantivo .accent { color: #1565C0; }
+  .tema-sustantivo .badge { background: #e3f2fd; color: #1565C0; border: 1px solid #90CAF9; }
+  .tema-sustantivo .table-header { background: #1565C0; }
+
+  .tema-articulo .slide-header { background: linear-gradient(90deg, #e8f8f0, white); border-color: #4CAF50; }
+  .tema-articulo .slide-header h2 { color: #2E7D32; }
+  .tema-articulo .slide-header .numero { color: #4CAF50; }
+  .tema-articulo .accent { color: #2E7D32; }
+  .tema-articulo .badge { background: #E8F5E9; color: #2E7D32; border: 1px solid #A5D6A7; }
+  .tema-articulo .table-header { background: #2E7D32; }
+
+  .tema-adjetivo .slide-header { background: linear-gradient(90deg, #fff8e1, white); border-color: #FF9800; }
+  .tema-adjetivo .slide-header h2 { color: #E65100; }
+  .tema-adjetivo .slide-header .numero { color: #FF9800; }
+  .tema-adjetivo .accent { color: #E65100; }
+  .tema-adjetivo .badge { background: #FFF3E0; color: #E65100; border: 1px solid #FFCC80; }
+  .tema-adjetivo .table-header { background: #E65100; }
+
+  .tema-verbo .slide-header { background: linear-gradient(90deg, #fce4ec, white); border-color: #E91E63; }
+  .tema-verbo .slide-header h2 { color: #880E4F; }
+  .tema-verbo .slide-header .numero { color: #E91E63; }
+  .tema-verbo .accent { color: #880E4F; }
+  .tema-verbo .badge { background: #FCE4EC; color: #880E4F; border: 1px solid #F48FB1; }
+  .tema-verbo .table-header { background: #880E4F; }
+
+  .tema-tiempo .slide-header { background: linear-gradient(90deg, #ede7f6, white); border-color: #9C27B0; }
+  .tema-tiempo .slide-header h2 { color: #4A148C; }
+  .tema-tiempo .slide-header .numero { color: #9C27B0; }
+  .tema-tiempo .accent { color: #4A148C; }
+  .tema-tiempo .badge { background: #EDE7F6; color: #4A148C; border: 1px solid #CE93D8; }
+  .tema-tiempo .table-header { background: #4A148C; }
+
+  .tema-resumen .slide-header { background: linear-gradient(90deg, #e0f7fa, white); border-color: #00BCD4; }
+  .tema-resumen .slide-header h2 { color: #006064; }
+  .tema-resumen .slide-header .numero { color: #00BCD4; }
+  .tema-resumen .accent { color: #006064; }
+  .tema-resumen .badge { background: #E0F7FA; color: #006064; border: 1px solid #80DEEA; }
+  .tema-resumen .table-header { background: #006064; }
+
+  /* COMPONENTES */
+  table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 15px; }
+  th { padding: 10px 14px; color: white; text-align: left; font-weight: 600; }
+  td { padding: 9px 14px; border-bottom: 1px solid #eee; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+  tr:last-child td { border-bottom: none; }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  .card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 18px;
+    border-left: 5px solid currentColor;
+  }
+  .card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .card p, .card li { font-size: 14px; line-height: 1.6; }
+  .card ul { padding-left: 18px; }
+
+  .badge {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 3px;
+  }
+
+  .ejemplo {
+    background: #f0f4f8;
+    border-left: 4px solid #90A4AE;
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    margin: 10px 0;
+    font-size: 15px;
+  }
+  .ejemplo strong { font-style: normal; }
+
+  .clave {
+    background: linear-gradient(135deg, #fff9c4, #fff3e0);
+    border: 2px solid #FFC107;
+    border-radius: 10px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    font-size: 14px;
+  }
+  .clave::before { content: "⚡ CLAVE: "; font-weight: 700; color: #F57F17; }
+
+  .conjugacion {
+    background: #f3f0ff;
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 2;
+  }
+  .conjugacion .terminacion { color: #7B1FA2; font-weight: 700; }
+  .conjugacion .persona { color: #555; display: inline-block; width: 120px; }
+
+  .numero-slide {
+    position: absolute;
+    bottom: 14px;
+    right: 20px;
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .titulo-seccion {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center; padding: 60px;
+    min-height: 540px;
+  }
+  .titulo-seccion h1 { color: white; font-size: 48px; font-weight: 800; margin-bottom: 16px; }
+  .titulo-seccion p { color: rgba(255,255,255,0.8); font-size: 20px; }
+  .titulo-seccion .icono { font-size: 80px; margin-bottom: 24px; }
+
+  .highlight { background: yellow; padding: 0 3px; border-radius: 2px; }
+
+  ul.lista { list-style: none; padding: 0; }
+  ul.lista li { padding: 8px 0 8px 28px; position: relative; font-size: 15px; border-bottom: 1px solid #f0f0f0; }
+  ul.lista li::before { content: "▶"; color: currentColor; position: absolute; left: 4px; font-size: 11px; top: 10px; }
+
+  .box-azul { background: #E3F2FD; border-radius: 10px; padding: 16px; border: 1px solid #90CAF9; }
+  .box-verde { background: #E8F5E9; border-radius: 10px; padding: 16px; border: 1px solid #A5D6A7; }
+  .box-rojo { background: #FFEBEE; border-radius: 10px; padding: 16px; border: 1px solid #EF9A9A; }
+  .box-amarillo { background: #FFFDE7; border-radius: 10px; padding: 16px; border: 1px solid #FFF176; }
+
+  @media print {
+    body { background: white; }
+    .slide { margin: 0; box-shadow: none; page-break-after: always; border-radius: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: PORTADA -->
+<div class="slide">
+  <div class="slide-portada">
+    <div class="decoracion">📚</div>
+    <h1>Prácticas del Lenguaje</h1>
+    <h2>Guía Completa para el Examen</h2>
+    <div class="subtitulo">Sustantivos · Adjetivos · Artículos · Verbos · Tiempos verbales</div>
+  </div>
+  <div class="numero-slide">1</div>
+</div>
+
+<!-- SLIDE 2: ÍNDICE -->
+<div class="slide slide-normal tema-resumen">
+  <div class="slide-header">
+    <div class="numero">CONTENIDO</div>
+    <h2>¿Qué vamos a aprender?</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700; color:#006064; margin-bottom:12px; font-size:16px;">📖 CLASES DE PALABRAS</p>
+        <ul class="lista" style="color:#006064">
+          <li>Sustantivos y todos sus tipos</li>
+          <li>Artículos</li>
+          <li>Adjetivos y tipos</li>
+          <li>Pronombres</li>
+          <li>Preposiciones</li>
+        </ul>
+      </div>
+      <div>
+        <p style="font-weight:700; color:#880E4F; margin-bottom:12px; font-size:16px;">🔧 VERBOS</p>
+        <ul class="lista" style="color:#880E4F">
+          <li>Estructura del verbo</li>
+          <li>Raíz y terminación</li>
+          <li>Modos verbales</li>
+          <li>Todos los tiempos verbales</li>
+          <li>Personas y número</li>
+          <li>Cómo conjugar y analizar</li>
+        </ul>
+      </div>
+    </div>
+    <div class="clave" style="margin-top:20px">Este material cubre todo lo necesario para el examen de análisis morfológico y verbos conjugados.</div>
+  </div>
+  <div class="numero-slide">2</div>
+</div>
+
+<!-- SLIDE 3: TITULO SECCION SUSTANTIVOS -->
+<div class="slide">
+  <div class="titulo-seccion" style="background: linear-gradient(135deg, #1565C0, #42A5F5)">
+    <div class="icono">🏷️</div>
+    <h1>SUSTANTIVOS</h1>
+    <p>Nombres de personas, cosas, lugares e ideas</p>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">3</div>
+</div>
+
+<!-- SLIDE 4: QUE ES UN SUSTANTIVO -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · DEFINICIÓN</div>
+    <h2>¿Qué es un Sustantivo?</h2>
+  </div>
+  <div class="slide-body">
+    <p style="font-size:17px; margin-bottom:20px;">Es la clase de palabra que <strong>nombra</strong> personas, animales, cosas, lugares o ideas.</p>
+    <div class="grid-2">
+      <div class="box-azul">
+        <p style="font-weight:700; color:#1565C0; margin-bottom:10px;">Ejemplos concretos:</p>
+        <p style="font-size:15px; line-height:2;">mesa &nbsp;·&nbsp; perro &nbsp;·&nbsp; libro<br>ciudad &nbsp;·&nbsp; alumno &nbsp;·&nbsp; agua</p>
+      </div>
+      <div class="box-azul">
+        <p style="font-weight:700; color:#1565C0; margin-bottom:10px;">Ejemplos abstractos:</p>
+        <p style="font-size:15px; line-height:2;">amor &nbsp;·&nbsp; miedo &nbsp;·&nbsp; libertad<br>preocupación &nbsp;·&nbsp; comunidad</p>
+      </div>
+    </div>
+    <div class="clave">El sustantivo siempre tiene GÉNERO (masc/fem) y NÚMERO (sing/plural)</div>
+    <div class="ejemplo">
+      "Las <strong>amenazas</strong> generaron <strong>preocupación</strong> en la <strong>comunidad</strong> educativa."
+      <br><small style="color:#666">→ amenazas, preocupación y comunidad son sustantivos</small>
+    </div>
+  </div>
+  <div class="numero-slide">4</div>
+</div>
+
+<!-- SLIDE 5: SUSTANTIVO COMUN VS PROPIO -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · TIPO 1</div>
+    <h2>Común vs. Propio</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card" style="color:#1565C0; border-left-color:#1565C0">
+        <h3>SUSTANTIVO COMÚN</h3>
+        <p>Nombra cualquier ser de su especie, de forma genérica. <strong>No se escribe con mayúscula.</strong></p>
+        <br>
+        <ul class="lista" style="color:#1565C0">
+          <li>ciudad</li>
+          <li>perro</li>
+          <li>escuela</li>
+          <li>amenaza</li>
+          <li>comunidad</li>
+        </ul>
+      </div>
+      <div class="card" style="color:#0D47A1; border-left-color:#0D47A1">
+        <h3>SUSTANTIVO PROPIO</h3>
+        <p>Nombra un ser específico, único. <strong>Siempre se escribe con mayúscula.</strong></p>
+        <br>
+        <ul class="lista" style="color:#0D47A1">
+          <li>Argentina</li>
+          <li>Clara</li>
+          <li>Buenos Aires</li>
+          <li>Kabam</li>
+          <li>Río de la Plata</li>
+        </ul>
+      </div>
+    </div>
+    <div class="clave">Si se escribe con mayúscula → es PROPIO. Si no → es COMÚN.</div>
+  </div>
+  <div class="numero-slide">5</div>
+</div>
+
+<!-- SLIDE 6: CONCRETO VS ABSTRACTO -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · TIPO 2</div>
+    <h2>Concreto vs. Abstracto</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card" style="color:#1565C0; border-left-color:#2196F3">
+        <h3>CONCRETO</h3>
+        <p>Lo podés <strong>tocar, ver, oler</strong> con los sentidos. Existe físicamente.</p>
+        <br>
+        <ul class="lista" style="color:#1565C0">
+          <li>mesa &nbsp;<span style="color:#aaa; font-size:12px">(la ves)</span></li>
+          <li>perro &nbsp;<span style="color:#aaa; font-size:12px">(lo tocás)</span></li>
+          <li>libro &nbsp;<span style="color:#aaa; font-size:12px">(lo agarrás)</span></li>
+          <li>agua &nbsp;<span style="color:#aaa; font-size:12px">(la tomás)</span></li>
+        </ul>
+      </div>
+      <div class="card" style="color:#1A237E; border-left-color:#3F51B5">
+        <h3>ABSTRACTO</h3>
+        <p>No se puede tocar. Es una <strong>idea, sentimiento o concepto</strong>.</p>
+        <br>
+        <ul class="lista" style="color:#1A237E">
+          <li>amor &nbsp;<span style="color:#aaa; font-size:12px">(no se toca)</span></li>
+          <li>miedo &nbsp;<span style="color:#aaa; font-size:12px">(es un sentimiento)</span></li>
+          <li>libertad &nbsp;<span style="color:#aaa; font-size:12px">(es un concepto)</span></li>
+          <li>preocupación &nbsp;<span style="color:#aaa; font-size:12px">(idea)</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clave">Preguntate: ¿Lo puedo tocar? → Concreto. ¿Es una idea o sentimiento? → Abstracto.</div>
+  </div>
+  <div class="numero-slide">6</div>
+</div>
+
+<!-- SLIDE 7: INDIVIDUAL VS COLECTIVO -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · TIPO 3</div>
+    <h2>Individual vs. Colectivo</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card" style="color:#1565C0; border-left-color:#2196F3">
+        <h3>INDIVIDUAL</h3>
+        <p>En singular nombra <strong>un solo ser</strong>.</p>
+        <br>
+        <ul class="lista" style="color:#1565C0">
+          <li>árbol <span style="color:#aaa; font-size:12px">(uno solo)</span></li>
+          <li>alumno <span style="color:#aaa; font-size:12px">(uno solo)</span></li>
+          <li>perro <span style="color:#aaa; font-size:12px">(uno solo)</span></li>
+          <li>libro <span style="color:#aaa; font-size:12px">(uno solo)</span></li>
+        </ul>
+      </div>
+      <div class="card" style="color:#1A237E; border-left-color:#3F51B5">
+        <h3>COLECTIVO</h3>
+        <p>En singular nombra <strong>un conjunto o grupo</strong>.</p>
+        <br>
+        <ul class="lista" style="color:#1A237E">
+          <li>bosque <span style="color:#aaa; font-size:12px">(muchos árboles)</span></li>
+          <li>clase <span style="color:#aaa; font-size:12px">(muchos alumnos)</span></li>
+          <li>jauría <span style="color:#aaa; font-size:12px">(muchos perros)</span></li>
+          <li>comunidad <span style="color:#aaa; font-size:12px">(muchas personas)</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="clave">Aunque esté en singular, si habla de "un grupo de cosas" → es COLECTIVO.</div>
+    <div class="ejemplo">"comunidad" → es sustantivo colectivo porque aunque está en singular, se refiere a un conjunto de personas.</div>
+  </div>
+  <div class="numero-slide">7</div>
+</div>
+
+<!-- SLIDE 8: CONTABLE VS NO CONTABLE -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · TIPO 4</div>
+    <h2>Contable vs. No Contable</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="card" style="color:#1565C0; border-left-color:#2196F3">
+        <h3>CONTABLE</h3>
+        <p>Se puede <strong>contar con números</strong>.</p>
+        <br>
+        <ul class="lista" style="color:#1565C0">
+          <li>tres libros ✔</li>
+          <li>dos sillas ✔</li>
+          <li>cinco alumnos ✔</li>
+          <li>veinte escuelas ✔</li>
+        </ul>
+      </div>
+      <div class="card" style="color:#1A237E; border-left-color:#3F51B5">
+        <h3>NO CONTABLE</h3>
+        <p><strong>No se puede contar</strong> directamente con números.</p>
+        <br>
+        <ul class="lista" style="color:#1A237E">
+          <li>agua ✗ <span style="color:#aaa; font-size:12px">(no decís "dos aguas")</span></li>
+          <li>arena ✗</li>
+          <li>leche ✗</li>
+          <li>amor ✗</li>
+        </ul>
+      </div>
+    </div>
+    <div class="clave">Preguntate: ¿Puedo decir "dos/tres/cuatro + la palabra"? Si sí → Contable. Si no → No contable.</div>
+  </div>
+  <div class="numero-slide">8</div>
+</div>
+
+<!-- SLIDE 9: TABLA RESUMEN SUSTANTIVOS -->
+<div class="slide slide-normal tema-sustantivo">
+  <div class="slide-header">
+    <div class="numero">SUSTANTIVO · RESUMEN</div>
+    <h2>Cómo analizar un Sustantivo</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:16px; font-size:15px;">Para analizar un sustantivo en el examen, tenés que responder TODAS estas preguntas:</p>
+    <table>
+      <tr>
+        <th class="table-header">Pregunta</th>
+        <th class="table-header">Opciones</th>
+        <th class="table-header">Ejemplo: "comunidad"</th>
+      </tr>
+      <tr><td><strong>¿Qué tipo?</strong></td><td>Común / Propio</td><td>Común</td></tr>
+      <tr><td><strong>¿Concreto o abstracto?</strong></td><td>Concreto / Abstracto</td><td>Abstracto</td></tr>
+      <tr><td><strong>¿Individual o colectivo?</strong></td><td>Individual / Colectivo</td><td>Colectivo</td></tr>
+      <tr><td><strong>¿Contable?</strong></td><td>Contable / No contable</td><td>Contable</td></tr>
+      <tr><td><strong>¿Género?</strong></td><td>Masculino / Femenino</td><td>Femenino</td></tr>
+      <tr><td><strong>¿Número?</strong></td><td>Singular / Plural</td><td>Singular</td></tr>
+    </table>
+    <div class="ejemplo"><strong>Respuesta completa:</strong> "comunidad" → Sustantivo <span class="highlight">común</span>, <span class="highlight">abstracto</span>, <span class="highlight">colectivo</span>, <span class="highlight">contable</span>, <span class="highlight">femenino</span>, <span class="highlight">singular</span></div>
+  </div>
+  <div class="numero-slide">9</div>
+</div>
+
+<!-- SLIDE 10: ARTICULOS -->
+<div class="slide">
+  <div class="titulo-seccion" style="background: linear-gradient(135deg, #2E7D32, #66BB6A)">
+    <div class="icono">📌</div>
+    <h1>ARTÍCULOS</h1>
+    <p>Palabras que presentan al sustantivo</p>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">10</div>
+</div>
+
+<!-- SLIDE 11: ARTICULOS TIPOS -->
+<div class="slide slide-normal tema-articulo">
+  <div class="slide-header">
+    <div class="numero">ARTÍCULOS</div>
+    <h2>Definidos e Indefinidos</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:16px; font-size:15px;">El artículo <strong>acompaña y presenta</strong> al sustantivo. Tiene el mismo género y número que él.</p>
+    <table>
+      <tr>
+        <th class="table-header">Tipo</th>
+        <th class="table-header">Masc. Singular</th>
+        <th class="table-header">Fem. Singular</th>
+        <th class="table-header">Masc. Plural</th>
+        <th class="table-header">Fem. Plural</th>
+      </tr>
+      <tr>
+        <td><strong>Definido</strong><br><small style="color:#888">(sabemos cuál es)</small></td>
+        <td><span class="badge">el</span></td>
+        <td><span class="badge">la</span></td>
+        <td><span class="badge">los</span></td>
+        <td><span class="badge">las</span></td>
+      </tr>
+      <tr>
+        <td><strong>Indefinido</strong><br><small style="color:#888">(no sabemos cuál)</small></td>
+        <td><span class="badge">un</span></td>
+        <td><span class="badge">una</span></td>
+        <td><span class="badge">unos</span></td>
+        <td><span class="badge">unas</span></td>
+      </tr>
+    </table>
+    <div class="clave">Para analizarlo decís: género + número + tipo. Ej: "las" → artículo femenino, plural, DEFINIDO</div>
+    <div class="grid-2" style="margin-top:14px">
+      <div class="ejemplo">"<strong>la</strong> comunidad" → artículo fem, sing, definido</div>
+      <div class="ejemplo">"<strong>una</strong> amenaza" → artículo fem, sing, indefinido</div>
+    </div>
+  </div>
+  <div class="numero-slide">11</div>
+</div>
+
+<!-- SLIDE 12: ADJETIVOS -->
+<div class="slide">
+  <div class="titulo-seccion" style="background: linear-gradient(135deg, #E65100, #FFA726)">
+    <div class="icono">✨</div>
+    <h1>ADJETIVOS</h1>
+    <p>Describen o califican al sustantivo</p>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">12</div>
+</div>
+
+<!-- SLIDE 13: TIPOS DE ADJETIVOS -->
+<div class="slide slide-normal tema-adjetivo">
+  <div class="slide-header">
+    <div class="numero">ADJETIVOS · TIPOS</div>
+    <h2>Todos los tipos de Adjetivos</h2>
+  </div>
+  <div class="slide-body">
+    <table>
+      <tr>
+        <th class="table-header">Tipo</th>
+        <th class="table-header">¿Qué hace?</th>
+        <th class="table-header">Ejemplos</th>
+      </tr>
+      <tr><td><strong>Calificativo</strong></td><td>Describe una cualidad o característica</td><td><span class="badge">alto</span> <span class="badge">triste</span> <span class="badge">emocional</span> <span class="badge">peligroso</span></td></tr>
+      <tr><td><strong>Gentilicio</strong></td><td>Indica origen o nacionalidad</td><td><span class="badge">argentino/a</span> <span class="badge">porteño/a</span> <span class="badge">chileno/a</span></td></tr>
+      <tr><td><strong>Numeral</strong></td><td>Indica cantidad o número exacto</td><td><span class="badge">veinte</span> <span class="badge">primero</span> <span class="badge">doble</span> <span class="badge">tres</span></td></tr>
+      <tr><td><strong>Demostrativo</strong></td><td>Señala dónde está algo respecto al hablante</td><td><span class="badge">este/a</span> <span class="badge">ese/a</span> <span class="badge">aquel</span></td></tr>
+      <tr><td><strong>Indefinido</strong></td><td>Indica cantidad vaga o imprecisa</td><td><span class="badge">otros/as</span> <span class="badge">algunos</span> <span class="badge">varios</span> <span class="badge">todo</span></td></tr>
+      <tr><td><strong>Posesivo</strong></td><td>Indica pertenencia</td><td><span class="badge">mi</span> <span class="badge">tu</span> <span class="badge">su</span> <span class="badge">nuestro</span></td></tr>
+    </table>
+    <div class="clave">El adjetivo SIEMPRE concuerda en género y número con el sustantivo que acompaña.</div>
+  </div>
+  <div class="numero-slide">13</div>
+</div>
+
+<!-- SLIDE 14: PREPOSICIONES Y PRONOMBRES -->
+<div class="slide slide-normal tema-adjetivo">
+  <div class="slide-header">
+    <div class="numero">OTRAS CLASES DE PALABRAS</div>
+    <h2>Preposiciones y Pronombres</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700; color:#E65100; font-size:16px; margin-bottom:12px;">PREPOSICIÓN</p>
+        <p style="font-size:14px; margin-bottom:12px;">Relaciona palabras dentro de la oración. Son <strong>invariables</strong> (nunca cambian).</p>
+        <div class="box-amarillo">
+          <p style="font-size:14px; line-height:2; text-align:center;">
+            <strong>a · ante · bajo · con · contra · de<br>
+            desde · en · entre · hacia · hasta<br>
+            para · por · según · sin · sobre · tras</strong>
+          </p>
+        </div>
+        <div style="margin-top:10px; font-size:13px; color:#555; font-style:italic;">
+          "ante esta situación" → ANTE es preposición, invariable
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700; color:#E65100; font-size:16px; margin-bottom:12px;">PRONOMBRE</p>
+        <p style="font-size:14px; margin-bottom:12px;"><strong>Reemplaza al sustantivo</strong> para no repetirlo.</p>
+        <table style="font-size:14px;">
+          <tr><th class="table-header">Tipo</th><th class="table-header">Ejemplos</th></tr>
+          <tr><td>Personal</td><td>yo, tú, él, ella, nosotros, ustedes</td></tr>
+          <tr><td>Demostrativo</td><td>este, ese, aquel <em>(sin sustantivo)</em></td></tr>
+          <tr><td>Posesivo</td><td>mío, tuyo, suyo</td></tr>
+          <tr><td>Indefinido</td><td>alguien, nadie, algo, nada</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="numero-slide">14</div>
+</div>
+
+<!-- SLIDE 15: TITULO VERBOS -->
+<div class="slide">
+  <div class="titulo-seccion" style="background: linear-gradient(135deg, #880E4F, #E91E63)">
+    <div class="icono">⚡</div>
+    <h1>VERBOS</h1>
+    <p>La parte más importante del examen</p>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">15</div>
+</div>
+
+<!-- SLIDE 16: ESTRUCTURA DEL VERBO -->
+<div class="slide slide-normal tema-verbo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · ESTRUCTURA</div>
+    <h2>Raíz y Terminación</h2>
+  </div>
+  <div class="slide-body">
+    <p style="font-size:16px; margin-bottom:20px;">Todo verbo tiene <strong>dos partes</strong>:</p>
+    <div style="text-align:center; margin:20px 0; font-size:22px; font-weight:700;">
+      <span style="background:#FCE4EC; color:#880E4F; padding:10px 20px; border-radius:8px 0 0 8px;">RAÍZ</span>
+      <span style="background:#F3E5F5; color:#6A1B9A; padding:10px 20px; border-radius:0 8px 8px 0; margin-left:2px;">TERMINACIÓN</span>
+      <span style="font-size:18px; color:#888; margin-left:20px;">= VERBO</span>
+    </div>
+    <table>
+      <tr>
+        <th class="table-header">Infinitivo</th>
+        <th class="table-header">Raíz</th>
+        <th class="table-header">Terminación</th>
+        <th class="table-header">¿Cómo se saca la raíz?</th>
+      </tr>
+      <tr><td>TRABAJAR</td><td><strong>trabaj-</strong></td><td>ar</td><td>Se saca -ar</td></tr>
+      <tr><td>PROVOCAR</td><td><strong>provoc-</strong></td><td>ar</td><td>Se saca -ar</td></tr>
+      <tr><td>INCLUIR</td><td><strong>inclu-</strong></td><td>ir</td><td>Se saca -ir</td></tr>
+      <tr><td>MANTENER</td><td><strong>manten-</strong></td><td>er</td><td>Se saca -er</td></tr>
+      <tr><td>PODER</td><td><strong>pod-</strong></td><td>er</td><td>Se saca -er</td></tr>
+      <tr><td>CONVERTIR</td><td><strong>convert-</strong></td><td>ir</td><td>Se saca -ir</td></tr>
+    </table>
+    <div class="clave">Para encontrar la raíz: buscás el infinitivo, le sacás -ar/-er/-ir. Lo que queda ES la raíz.</div>
+  </div>
+  <div class="numero-slide">16</div>
+</div>
+
+<!-- SLIDE 17: MODOS VERBALES -->
+<div class="slide slide-normal tema-verbo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · MODOS</div>
+    <h2>Modos Verbales</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-3">
+      <div class="card" style="color:#880E4F; border-left-color:#E91E63">
+        <h3>INDICATIVO</h3>
+        <p>Expresa hechos <strong>reales y concretos</strong>.</p>
+        <br>
+        <p>El más común en textos informativos y periodísticos.</p>
+        <br>
+        <div class="ejemplo" style="font-size:13px">"Las amenazas <strong>aparecieron</strong> en las paredes."</div>
+      </div>
+      <div class="card" style="color:#4A148C; border-left-color:#9C27B0">
+        <h3>SUBJUNTIVO</h3>
+        <p>Expresa <strong>deseos, dudas, posibilidades</strong> o lo que no es seguro.</p>
+        <br>
+        <div class="ejemplo" style="font-size:13px">"Quiero que <strong>vengas</strong>."<br>"Ojalá <strong>llueva</strong>."</div>
+      </div>
+      <div class="card" style="color:#B71C1C; border-left-color:#F44336">
+        <h3>IMPERATIVO</h3>
+        <p>Expresa <strong>órdenes o pedidos</strong> directos.</p>
+        <br>
+        <div class="ejemplo" style="font-size:13px">"<strong>Vení</strong> acá."<br>"<strong>Sentate</strong> ya."<br>"<strong>Hacé</strong> la tarea."</div>
+      </div>
+    </div>
+    <div class="clave" style="margin-top:16px">En el examen, casi todos los verbos de texto periodístico son INDICATIVO. Es el modo por defecto.</div>
+  </div>
+  <div class="numero-slide">17</div>
+</div>
+
+<!-- SLIDE 18: PERSONAS VERBALES -->
+<div class="slide slide-normal tema-verbo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · PERSONAS</div>
+    <h2>Personas y Número</h2>
+  </div>
+  <div class="slide-body">
+    <table>
+      <tr>
+        <th class="table-header">Persona</th>
+        <th class="table-header">Singular</th>
+        <th class="table-header">Plural</th>
+      </tr>
+      <tr>
+        <td style="font-weight:700">1° persona</td>
+        <td><span class="badge">Yo</span></td>
+        <td><span class="badge">Nosotros / Nosotras</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">2° persona</td>
+        <td><span class="badge">Vos / Tú</span></td>
+        <td><span class="badge">Ustedes</span></td>
+      </tr>
+      <tr>
+        <td style="font-weight:700">3° persona</td>
+        <td><span class="badge">Él / Ella</span></td>
+        <td><span class="badge">Ellos / Ellas</span></td>
+      </tr>
+    </table>
+    <div class="clave">En Argentina usamos VOS (2° singular) y USTEDES (2° plural). NO usamos "vosotros".</div>
+    <br>
+    <div class="box-rojo">
+      <p style="font-weight:700; color:#B71C1C; margin-bottom:8px;">¿Cómo saber la persona de un verbo?</p>
+      <p style="font-size:14px;">Preguntás: ¿Quién realiza la acción?<br>
+      "provoc<strong>ó</strong>" → lo hizo <em>él/ella</em> → 3° persona singular<br>
+      "mantend<strong>rán</strong>" → lo harán <em>ellos</em> → 3° persona plural<br>
+      "investig<strong>an</strong>" → lo hacen <em>ellos</em> → 3° persona plural</p>
+    </div>
+  </div>
+  <div class="numero-slide">18</div>
+</div>
+
+<!-- SLIDE 19: TITULO TIEMPOS -->
+<div class="slide">
+  <div class="titulo-seccion" style="background: linear-gradient(135deg, #4A148C, #9C27B0)">
+    <div class="icono">⏱️</div>
+    <h1>TIEMPOS VERBALES</h1>
+    <p>Cuándo ocurre la acción</p>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">19</div>
+</div>
+
+<!-- SLIDE 20: PRESENTE -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">TIEMPO VERBAL · 1</div>
+    <h2>Presente del Indicativo</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:16px; font-size:16px;">Expresa acciones que ocurren <strong>ahora</strong> o que son <strong>siempre verdad</strong>.</p>
+    <div class="grid-2">
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">TRABAJAR (-AR)</p>
+        <div><span class="persona">Yo</span> trabaj<span class="terminacion">o</span></div>
+        <div><span class="persona">Vos</span> trabaj<span class="terminacion">ás</span></div>
+        <div><span class="persona">Él/Ella</span> trabaj<span class="terminacion">a</span></div>
+        <div><span class="persona">Nosotros</span> trabaj<span class="terminacion">amos</span></div>
+        <div><span class="persona">Ustedes</span> trabaj<span class="terminacion">an</span></div>
+        <div><span class="persona">Ellos</span> trabaj<span class="terminacion">an</span></div>
+      </div>
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">PODER (-ER)</p>
+        <div><span class="persona">Yo</span> pued<span class="terminacion">o</span></div>
+        <div><span class="persona">Vos</span> pod<span class="terminacion">és</span></div>
+        <div><span class="persona">Él/Ella</span> pued<span class="terminacion">e</span></div>
+        <div><span class="persona">Nosotros</span> pod<span class="terminacion">emos</span></div>
+        <div><span class="persona">Ustedes</span> pued<span class="terminacion">en</span></div>
+        <div><span class="persona">Ellos</span> pued<span class="terminacion">en</span></div>
+      </div>
+    </div>
+    <div class="clave">Las autoridades investigan un posible patrón. → "investigan" = 3° plural, presente, indicativo</div>
+  </div>
+  <div class="numero-slide">20</div>
+</div>
+
+<!-- SLIDE 21: PRETERITO PERFECTO SIMPLE -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">TIEMPO VERBAL · 2</div>
+    <h2>Pretérito Perfecto Simple</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:12px; font-size:15px;">Acción pasada, <strong>terminada</strong> y <strong>puntual</strong>. Es el tiempo más usado en noticias.</p>
+    <div class="grid-2">
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">PROVOCAR (-AR)</p>
+        <div><span class="persona">Yo</span> provoc<span class="terminacion">é</span></div>
+        <div><span class="persona">Vos</span> provoc<span class="terminacion">aste</span></div>
+        <div><span class="persona">Él/Ella</span> provoc<span class="terminacion">ó</span> ⭐</div>
+        <div><span class="persona">Nosotros</span> provoc<span class="terminacion">amos</span></div>
+        <div><span class="persona">Ustedes</span> provoc<span class="terminacion">aron</span></div>
+        <div><span class="persona">Ellos</span> provoc<span class="terminacion">aron</span> ⭐</div>
+      </div>
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">APARECER (-ER)</p>
+        <div><span class="persona">Yo</span> aparec<span class="terminacion">í</span></div>
+        <div><span class="persona">Vos</span> aparec<span class="terminacion">iste</span></div>
+        <div><span class="persona">Él/Ella</span> aparec<span class="terminacion">ió</span></div>
+        <div><span class="persona">Nosotros</span> aparec<span class="terminacion">imos</span></div>
+        <div><span class="persona">Ustedes</span> aparec<span class="terminacion">ieron</span></div>
+        <div><span class="persona">Ellos</span> aparec<span class="terminacion">ieron</span></div>
+      </div>
+    </div>
+    <div class="clave">Terminación -Ó (3° sing) y -ARON/-IERON (3° plural) son la pista más común en textos de noticias.</div>
+  </div>
+  <div class="numero-slide">21</div>
+</div>
+
+<!-- SLIDE 22: PRETERITO IMPERFECTO -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">TIEMPO VERBAL · 3</div>
+    <h2>Pretérito Imperfecto</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:12px; font-size:15px;">Acción pasada <strong>continua, habitual o incompleta</strong>. Se seguía haciendo.</p>
+    <div class="grid-2">
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">CONVERSAR (-AR)</p>
+        <div><span class="persona">Yo</span> convers<span class="terminacion">aba</span></div>
+        <div><span class="persona">Vos</span> convers<span class="terminacion">abas</span></div>
+        <div><span class="persona">Él/Ella</span> convers<span class="terminacion">aba</span></div>
+        <div><span class="persona">Nosotros</span> convers<span class="terminacion">ábamos</span></div>
+        <div><span class="persona">Ustedes</span> convers<span class="terminacion">aban</span> ⭐</div>
+        <div><span class="persona">Ellos</span> convers<span class="terminacion">aban</span></div>
+      </div>
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">INCLUIR (-IR)</p>
+        <div><span class="persona">Yo</span> inclu<span class="terminacion">ía</span></div>
+        <div><span class="persona">Vos</span> inclu<span class="terminacion">ías</span></div>
+        <div><span class="persona">Él/Ella</span> inclu<span class="terminacion">ía</span> ⭐</div>
+        <div><span class="persona">Nosotros</span> inclu<span class="terminacion">íamos</span></div>
+        <div><span class="persona">Ustedes</span> inclu<span class="terminacion">ían</span></div>
+        <div><span class="persona">Ellos</span> inclu<span class="terminacion">ían</span></div>
+      </div>
+    </div>
+    <div class="clave">Terminaciones en <strong>-ABA/-ABAN</strong> (verbos -ar) o <strong>-ÍA/-ÍAN</strong> (verbos -er/-ir) → siempre es Imperfecto.</div>
+  </div>
+  <div class="numero-slide">22</div>
+</div>
+
+<!-- SLIDE 23: FUTURO SIMPLE -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">TIEMPO VERBAL · 4</div>
+    <h2>Futuro Simple</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:12px; font-size:15px;">Acción que <strong>va a ocurrir</strong> después. Se forma con el <strong>infinitivo completo + terminación</strong>.</p>
+    <div class="grid-2">
+      <div class="conjugacion">
+        <p style="font-weight:700; color:#4A148C; margin-bottom:10px;">CONVERTIR (todos los verbos igual)</p>
+        <div><span class="persona">Yo</span> convertir<span class="terminacion">é</span> ⭐</div>
+        <div><span class="persona">Vos</span> convertir<span class="terminacion">ás</span></div>
+        <div><span class="persona">Él/Ella</span> convertir<span class="terminacion">á</span></div>
+        <div><span class="persona">Nosotros</span> convertir<span class="terminacion">emos</span></div>
+        <div><span class="persona">Ustedes</span> convertir<span class="terminacion">án</span></div>
+        <div><span class="persona">Ellos</span> convertir<span class="terminacion">án</span></div>
+      </div>
+      <div>
+        <div class="box-amarillo" style="margin-bottom:14px">
+          <p style="font-weight:700; color:#F57F17; margin-bottom:8px;">⚡ TRUCO:</p>
+          <p style="font-size:14px;">Las terminaciones del futuro son las mismas para TODOS los verbos (-ar, -er, -ir):<br><br>
+          <strong>-é / -ás / -á / -emos / -án / -án</strong></p>
+        </div>
+        <div class="ejemplo">
+          "Las autoridades <strong>mantendrán</strong> la vigilancia."<br>
+          → mantener + án = mantendrán<br>
+          → 3° plural, Futuro simple, Indicativo
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="numero-slide">23</div>
+</div>
+
+<!-- SLIDE 24: CONDICIONAL Y PLUSCUAMPERFECTO -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">TIEMPO VERBAL · 5 Y 6</div>
+    <h2>Condicional y Pluscuamperfecto</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div>
+        <p style="font-weight:700; color:#4A148C; font-size:16px; margin-bottom:10px;">CONDICIONAL (Potencial)</p>
+        <p style="font-size:14px; margin-bottom:10px;">Expresa algo <strong>posible o probable</strong>. También se usa para cortesía.</p>
+        <div class="conjugacion" style="font-size:13px">
+          <div><span class="persona">Yo</span> pod<span class="terminacion">ría</span></div>
+          <div><span class="persona">Vos</span> pod<span class="terminacion">rías</span></div>
+          <div><span class="persona">Él/Ella</span> pod<span class="terminacion">ría</span></div>
+          <div><span class="persona">Nosotros</span> pod<span class="terminacion">ríamos</span></div>
+          <div><span class="persona">Ustedes</span> pod<span class="terminacion">rían</span></div>
+        </div>
+        <div class="clave" style="font-size:12px; margin-top:8px">Terminaciones: -ría/-rías/-ría/-ríamos/-rían</div>
+      </div>
+      <div>
+        <p style="font-weight:700; color:#4A148C; font-size:16px; margin-bottom:10px;">PRETÉRITO PLUSCUAMPERFECTO</p>
+        <p style="font-size:14px; margin-bottom:10px;">Acción pasada que ocurrió <strong>ANTES que otra acción pasada</strong>. Se forma con <strong>había/habían + participio</strong>.</p>
+        <div class="conjugacion" style="font-size:13px">
+          <div><span class="persona">Yo</span> <span class="terminacion">había</span> aparecido</div>
+          <div><span class="persona">Vos</span> <span class="terminacion">habías</span> aparecido</div>
+          <div><span class="persona">Él/Ella</span> <span class="terminacion">había</span> aparecido</div>
+          <div><span class="persona">Ellos</span> <span class="terminacion">habían</span> aparecido</div>
+        </div>
+        <div class="ejemplo" style="font-size:13px; margin-top:8px">"Las advertencias <strong>habían aparecido</strong> antes" → Pluscuamperfecto</div>
+      </div>
+    </div>
+  </div>
+  <div class="numero-slide">24</div>
+</div>
+
+<!-- SLIDE 25: TABLA RESUMEN TIEMPOS -->
+<div class="slide slide-normal tema-tiempo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · RESUMEN</div>
+    <h2>Tabla Resumen de Tiempos Verbales</h2>
+  </div>
+  <div class="slide-body">
+    <table style="font-size:14px">
+      <tr>
+        <th class="table-header">Tiempo</th>
+        <th class="table-header">Cuándo se usa</th>
+        <th class="table-header">Pista visual</th>
+        <th class="table-header">Ejemplo</th>
+      </tr>
+      <tr><td><strong>Presente</strong></td><td>Ahora / siempre</td><td>-o, -ás, -a, -an</td><td>investigan</td></tr>
+      <tr><td><strong>Pret. Perf. Simple</strong></td><td>Pasado puntual, terminado</td><td><strong>-ó, -aron, -ieron</strong></td><td>provocó, aparecieron</td></tr>
+      <tr><td><strong>Pret. Imperfecto</strong></td><td>Pasado continuo/habitual</td><td><strong>-aba, -aban, -ía, -ían</strong></td><td>incluía, conversaban</td></tr>
+      <tr><td><strong>Pret. Pluscuamp.</strong></td><td>Antes de otro pasado</td><td><strong>había/habían + participio</strong></td><td>habían aparecido</td></tr>
+      <tr><td><strong>Futuro Simple</strong></td><td>Va a ocurrir</td><td><strong>-é, -ás, -á, -án</strong></td><td>mantendrán, convertiré</td></tr>
+      <tr><td><strong>Condicional</strong></td><td>Posibilidad / cortesía</td><td><strong>-ría, -rías, -rían</strong></td><td>podría, generaría</td></tr>
+    </table>
+  </div>
+  <div class="numero-slide">25</div>
+</div>
+
+<!-- SLIDE 26: COMO ANALIZAR UN VERBO -->
+<div class="slide slide-normal tema-verbo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · PRÁCTICA</div>
+    <h2>Cómo Analizar un Verbo Paso a Paso</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:16px; font-size:16px;">Cuando el examen te da un verbo conjugado, respondés estas 5 preguntas en orden:</p>
+    <div class="grid-2">
+      <div>
+        <div class="card" style="color:#880E4F; border-left-color:#E91E63; margin-bottom:12px">
+          <h3>Pasos a seguir:</h3>
+          <ul class="lista" style="color:#880E4F">
+            <li><strong>Paso 1:</strong> ¿Qué TIEMPO es?</li>
+            <li><strong>Paso 2:</strong> ¿Qué MODO es?</li>
+            <li><strong>Paso 3:</strong> ¿Qué PERSONA y NÚMERO?</li>
+            <li><strong>Paso 4:</strong> ¿Cuál es el INFINITIVO?</li>
+            <li><strong>Paso 5:</strong> ¿Cuál es la RAÍZ?</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <p style="font-weight:700; color:#880E4F; margin-bottom:10px;">Ejemplo: "provocó"</p>
+        <div class="box-rojo" style="font-size:14px; line-height:2">
+          <strong>Tiempo:</strong> Pretérito Perfecto Simple<br>
+          <strong>Modo:</strong> Indicativo<br>
+          <strong>Persona y N°:</strong> 3° persona singular<br>
+          <strong>Infinitivo:</strong> PROVOCAR<br>
+          <strong>Raíz:</strong> provoc-
+        </div>
+        <br>
+        <p style="font-weight:700; color:#880E4F; margin-bottom:10px;">Ejemplo: "mantendrán"</p>
+        <div class="box-rojo" style="font-size:14px; line-height:2">
+          <strong>Tiempo:</strong> Futuro Simple<br>
+          <strong>Modo:</strong> Indicativo<br>
+          <strong>Persona y N°:</strong> 3° persona plural<br>
+          <strong>Infinitivo:</strong> MANTENER<br>
+          <strong>Raíz:</strong> manten-
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="numero-slide">26</div>
+</div>
+
+<!-- SLIDE 27: COMO CONJUGAR UN VERBO -->
+<div class="slide slide-normal tema-verbo">
+  <div class="slide-header">
+    <div class="numero">VERBOS · CONJUGACIÓN</div>
+    <h2>Cómo Conjugar un Verbo</h2>
+  </div>
+  <div class="slide-body">
+    <p style="font-size:15px; margin-bottom:16px;">Cuando el examen te pide conjugar, seguís 3 pasos:</p>
+    <div class="grid-3">
+      <div class="card" style="color:#880E4F; border-left-color:#E91E63; text-align:center">
+        <div style="font-size:36px; margin-bottom:8px">1️⃣</div>
+        <h3>Encontrá la RAÍZ</h3>
+        <p>CONVERTIR → convert-</p>
+      </div>
+      <div class="card" style="color:#880E4F; border-left-color:#E91E63; text-align:center">
+        <div style="font-size:36px; margin-bottom:8px">2️⃣</div>
+        <h3>Buscá el TIEMPO pedido</h3>
+        <p>Futuro Simple, 1° sing → terminación <strong>-é</strong></p>
+      </div>
+      <div class="card" style="color:#880E4F; border-left-color:#E91E63; text-align:center">
+        <div style="font-size:36px; margin-bottom:8px">3️⃣</div>
+        <h3>Uní raíz + terminación</h3>
+        <p>convertir + é = <strong>convertiré</strong></p>
+      </div>
+    </div>
+    <div style="margin-top:20px">
+      <table style="font-size:14px">
+        <tr>
+          <th class="table-header">Verbo pedido</th>
+          <th class="table-header">Tiempo y persona</th>
+          <th class="table-header">Resultado</th>
+        </tr>
+        <tr><td>CONVERTIR</td><td>Futuro simple, 1° sing.</td><td><strong>convertiré</strong></td></tr>
+        <tr><td>CONVERSAR</td><td>Pret. imperfecto, 2° plural (uds.)</td><td><strong>conversaban</strong></td></tr>
+        <tr><td>TRABAJAR</td><td>Futuro simple, 3° plural</td><td><strong>trabajarán</strong></td></tr>
+        <tr><td>INCLUIR</td><td>Pret. imperfecto, 3° sing.</td><td><strong>incluía</strong></td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="numero-slide">27</div>
+</div>
+
+<!-- SLIDE 28: TRUCOS PARA EL EXAMEN -->
+<div class="slide slide-normal tema-resumen">
+  <div class="slide-header">
+    <div class="numero">EXAMEN · TRUCOS</div>
+    <h2>Trucos para Reconocer Verbos en el Texto</h2>
+  </div>
+  <div class="slide-body">
+    <p style="margin-bottom:14px; font-size:15px;">Cuando tenés que encontrar verbos en un texto, buscá estas pistas:</p>
+    <table>
+      <tr>
+        <th class="table-header">Si termina en...</th>
+        <th class="table-header">Es...</th>
+        <th class="table-header">Ejemplo</th>
+      </tr>
+      <tr><td><strong>-ó</strong></td><td>Pret. Perf. Simple, 3° sing.</td><td>provoc<strong>ó</strong>, gener<strong>ó</strong>, afect<strong>ó</strong></td></tr>
+      <tr><td><strong>-aron / -ieron</strong></td><td>Pret. Perf. Simple, 3° plural</td><td>aparec<strong>ieron</strong>, oblig<strong>aron</strong></td></tr>
+      <tr><td><strong>-aba / -aban</strong></td><td>Pret. Imperfecto (verbos -AR)</td><td>advertí<strong>an</strong>, convers<strong>aban</strong></td></tr>
+      <tr><td><strong>-ía / -ían</strong></td><td>Pret. Imperfecto (verbos -ER/-IR)</td><td>inclu<strong>ía</strong>, pod<strong>ría</strong></td></tr>
+      <tr><td><strong>-án / -á</strong></td><td>Futuro Simple</td><td>mantend<strong>rán</strong>, reforzar<strong>án</strong></td></tr>
+      <tr><td><strong>-an / -en</strong></td><td>Presente, 3° plural</td><td>investig<strong>an</strong>, explic<strong>an</strong></td></tr>
+      <tr><td><strong>había/habían + -ado/-ido</strong></td><td>Pret. Pluscuamperfecto</td><td>hab<strong>ían aparecido</strong></td></tr>
+    </table>
+  </div>
+  <div class="numero-slide">28</div>
+</div>
+
+<!-- SLIDE 29: RESUMEN FINAL -->
+<div class="slide slide-normal tema-resumen">
+  <div class="slide-header">
+    <div class="numero">RESUMEN FINAL</div>
+    <h2>Todo lo que necesitás recordar</h2>
+  </div>
+  <div class="slide-body">
+    <div class="grid-2">
+      <div class="box-azul">
+        <p style="font-weight:700; color:#1565C0; margin-bottom:10px; font-size:15px;">📦 PARA ANALIZAR UNA PALABRA</p>
+        <p style="font-size:13px; line-height:1.8">
+          1. ¿Qué clase de palabra es? (sust, art, adj, prep, pron, verbo)<br>
+          2. Si es sustantivo: común/propio + concreto/abstracto + individual/colectivo + contable/no contable<br>
+          3. Género (masc/fem)<br>
+          4. Número (sing/plural)<br>
+          5. Si es preposición: escribís "invariable"
+        </p>
+      </div>
+      <div class="box-rojo">
+        <p style="font-weight:700; color:#B71C1C; margin-bottom:10px; font-size:15px;">⚡ PARA ANALIZAR UN VERBO</p>
+        <p style="font-size:13px; line-height:1.8">
+          1. Tiempo verbal (pres/pret.perf.simple/pret.imperf/futuro/cond/plusc.)<br>
+          2. Modo (indicativo/subjuntivo/imperativo)<br>
+          3. Persona y número (1°/2°/3° + sing/plural)<br>
+          4. Infinitivo (-ar/-er/-ir)<br>
+          5. Raíz (infinitivo sin -ar/-er/-ir)
+        </p>
+      </div>
+    </div>
+    <div class="box-verde" style="margin-top:16px">
+      <p style="font-weight:700; color:#2E7D32; margin-bottom:8px; font-size:15px;">✏️ PARA CONJUGAR UN VERBO</p>
+      <p style="font-size:14px;">Encontrá la raíz → buscá la terminación del tiempo y persona pedidos → unilos. Ejemplo: TRABAJAR, Fut. Simple, 3° plural → trabaj- + arán = <strong>trabajarán</strong></p>
+    </div>
+  </div>
+  <div class="numero-slide">29</div>
+</div>
+
+<!-- SLIDE 30: CIERRE -->
+<div class="slide">
+  <div class="slide-portada" style="background: linear-gradient(135deg, #1B5E20, #4CAF50, #2E7D32)">
+    <div class="decoracion">✅</div>
+    <h1>¡Ya estás listo/a!</h1>
+    <h2>Repasá esta presentación antes del examen</h2>
+    <div class="subtitulo" style="margin-top:20px">Sustantivos · Artículos · Adjetivos · Preposiciones · Verbos · Tiempos</div>
+    <div style="color:rgba(255,255,255,0.7); margin-top:20px; font-size:15px;">¡Éxitos en el examen! 🌟</div>
+  </div>
+  <div class="numero-slide" style="color:rgba(255,255,255,0.5)">30</div>
+</div>
+
+</body>
+</html>
